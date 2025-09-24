@@ -1,24 +1,49 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import React from "react";
+import { Tabs } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons"; 
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
+export default function Layout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Tabs
+      screenOptions={{
+        headerShown: false,       
+        tabBarShowLabel: false,   
+        tabBarStyle: {
+          backgroundColor: "#111",
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          height: 65,
+          position: "absolute",
+        },
+      }}
+    >
+
+
+      <Tabs.Screen
+        name="home"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name={focused ? "home" : "home-outline"} 
+              size={28}
+              color={focused ? "#fff" : "#888"}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="details"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name={focused ? "compass" : "compass-outline"}
+              size={28}
+              color={focused ? "#fff" : "#888"}
+            />
+          ),
+        }}
+      />
+    </Tabs>
   );
 }
